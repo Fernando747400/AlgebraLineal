@@ -103,27 +103,27 @@ public class D20 : MonoBehaviour
             //Cara 16
             new Vector3(1.31f,0.93f,-0.18f),//45 H
             new Vector3(1.31f,0.58f,0.76f), //46 E
-            new Vector3(1,1.51f,0.58f), //46 K
+            new Vector3(1,1.51f,0.58f), //47 K
 
             //Cara 17
-            new Vector3(1.31f,0.93f,-0.18f),//47 H
-            new Vector3(0.5f,1.51f,-0.29f), //48 J
-            new Vector3(1,1.51f,0.58f), //49 K
+            new Vector3(1.31f,0.93f,-0.18f),//48 H
+            new Vector3(0.5f,1.51f,-0.29f), //49 J
+            new Vector3(1,1.51f,0.58f), //50 K
 
             //Cara 18
-            new Vector3(0,1.51f,0.58f),//50 L
-            new Vector3(0.5f,1.51f,-0.29f), //51 J
-            new Vector3(1,1.51f,0.58f), //52 K
+            new Vector3(0,1.51f,0.58f),//51 L
+            new Vector3(0.5f,1.51f,-0.29f), //52 J
+            new Vector3(1,1.51f,0.58f), //53 K
 
             //Cara 19
-            new Vector3(0,1.51f,0.58f),//53 L
-            new Vector3(0.5f,0.93f,1.22f), //54 I
-            new Vector3(1,1.51f,0.58f), //55 K
+            new Vector3(0,1.51f,0.58f),//54 L
+            new Vector3(0.5f,0.93f,1.22f), //55 I
+            new Vector3(1,1.51f,0.58f), //56 K
 
             //Cara 20
-            new Vector3(1.31f,0.58f,0.76f),//53 E
-            new Vector3(0.5f,0.93f,1.22f), //54 I
-            new Vector3(1,1.51f,0.58f), //55 K          
+            new Vector3(1.31f,0.58f,0.76f),//57 E
+            new Vector3(0.5f,0.93f,1.22f), //58 I
+            new Vector3(1,1.51f,0.58f), //59 K          
         };
 
 

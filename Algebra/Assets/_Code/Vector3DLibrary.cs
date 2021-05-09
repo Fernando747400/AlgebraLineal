@@ -2,37 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Vector3D : MonoBehaviour
+public class Vector3DLibrary
 {
-    [Header ("Vectores")]
-    [SerializeField] private GameObject gameObjectOne;
-    [SerializeField] private GameObject gameObjectTwo;
-    [Header("Traslaciones")]
-    [SerializeField] private float X;
-    [SerializeField] private float Y;
-    [SerializeField] private float Z;
-
-
-
-    void Update()
-    {
-        Debug.Log("Magnitud " + magnitud(parseVector(gameObjectOne)));
-        Debug.Log("Normalizado " + normalize(parseVector(gameObjectOne)));
-        Debug.Log("Distancia " + distance(parseVector(gameObjectOne),parseVector(gameObjectTwo)));
-        Debug.Log("Cruzado " + cross(parseVector(gameObjectOne), parseVector(gameObjectTwo)));
-        Move();
-    }
-
-    public void Move()
-    {
-        if (Input.GetKeyDown("space"))
-        {
-            gameObjectOne.transform.position = transformVector(parseVector(gameObjectOne), X, Y, Z);
-            Debug.Log("Espacio presionado");
-        }
-    }
-
-    Vector3 parseVector(GameObject objectOne)
+    public Vector3 parseVector(GameObject objectOne)
     {
         Vector3 answer;
         answer = objectOne.transform.position;
@@ -46,7 +18,7 @@ public class Vector3D : MonoBehaviour
         return respuesta;
     }
 
-    Vector3 normalize(Vector3 vector)
+    public Vector3 normalize(Vector3 vector)
     {
         Vector3 respuesta;
         respuesta.x = vector.x / magnitud(vector);
@@ -55,7 +27,7 @@ public class Vector3D : MonoBehaviour
         return respuesta;
     }
 
-    float distance(Vector3 vectorOne, Vector3 vectorTwo)
+    public float distance(Vector3 vectorOne, Vector3 vectorTwo)
     {
         float respuesta;
         respuesta = Mathf.Sqrt(Mathf.Pow(vectorOne.x - vectorTwo.x, 2)
@@ -82,10 +54,60 @@ public class Vector3D : MonoBehaviour
         vectorMatrix[1] = Vector.y;
         vectorMatrix[2] = Vector.z;
         vectorMatrix[3] = 1;
-        delta[0 ,3] = X;
+        delta[0, 3] = X;
         delta[1, 3] = Y;
         delta[2, 3] = Z;
-        float[] multiplied = multiplyMatrix3D(delta,vectorMatrix);
+        float[] multiplied = multiplyMatrix3D(delta, vectorMatrix);
+        answer.x = multiplied[0];
+        answer.y = multiplied[1];
+        answer.z = multiplied[2];
+        return answer;
+    }
+
+    public Vector3 rotateVectorAxisZ(Vector3 Vector, float Angle)
+    {
+        Vector3 answer = new Vector3();
+        float[,] delta = generateMatrix();
+        float[] vectorMatrix = new float[4];
+        vectorMatrix[0] = Vector.x;
+        vectorMatrix[1] = Vector.y;
+        vectorMatrix[2] = Vector.z;
+        vectorMatrix[3] = 1;
+        delta = setPivotZ(delta,Angle);
+        float[] multiplied = multiplyMatrix3D(delta, vectorMatrix);
+        answer.x = multiplied[0];
+        answer.y = multiplied[1];
+        answer.z = multiplied[2];
+        return answer;
+    }
+    public Vector3 rotateVectorAxisY(Vector3 Vector, float Angle)
+    {
+        Vector3 answer = new Vector3();
+        float[,] delta = generateMatrix();
+        float[] vectorMatrix = new float[4];
+        vectorMatrix[0] = Vector.x;
+        vectorMatrix[1] = Vector.y;
+        vectorMatrix[2] = Vector.z;
+        vectorMatrix[3] = 1;
+        delta = setPivotY(delta, Angle);
+        float[] multiplied = multiplyMatrix3D(delta, vectorMatrix);
+        answer.x = multiplied[0];
+        answer.y = multiplied[1];
+        answer.z = multiplied[2];
+        return answer;
+    }
+
+    public Vector3 rotateVectorAxisX(Vector3 Vector, float Angle)
+    {
+        Vector3 answer = new Vector3();
+        float[,] delta = generateMatrix();
+        float[] vectorMatrix = new float[4];
+        vectorMatrix[0] = Vector.x;
+        vectorMatrix[1] = Vector.y;
+        vectorMatrix[2] = Vector.z;
+        vectorMatrix[3] = 1;
+        delta = setPivotX(delta, Angle);
+        float[] multiplied = multiplyMatrix3D(delta, vectorMatrix);
         answer.x = multiplied[0];
         answer.y = multiplied[1];
         answer.z = multiplied[2];
@@ -106,12 +128,12 @@ public class Vector3D : MonoBehaviour
                     answer[i] = temporal;
                 }
             }
-           temporal = 0;
+            temporal = 0;
         }
         return answer;
-    } 
+    }
 
-     float[,] generateMatrix()
+    public float[,] generateMatrix()
     {
         float[,] answer = new float[4, 4];
 
@@ -132,8 +154,8 @@ public class Vector3D : MonoBehaviour
         return answer;
     }
 
-   
-    float [,] setPivotZ(float [,] matrix, float angle)
+
+    public float[,] setPivotZ(float[,] matrix, float angle)
     {
         matrix[0, 0] = Mathf.Cos(angle * Mathf.Deg2Rad);
         matrix[0, 1] = -Mathf.Sin(angle * Mathf.Deg2Rad);
@@ -143,7 +165,7 @@ public class Vector3D : MonoBehaviour
         return matrix;
     }
 
-    float[,] setPivotX(float[,] matrix, float angle)
+    public float[,] setPivotX(float[,] matrix, float angle)
     {
         matrix[1, 1] = Mathf.Cos(angle * Mathf.Deg2Rad);
         matrix[1, 2] = -Mathf.Sin(angle * Mathf.Deg2Rad);
@@ -153,7 +175,7 @@ public class Vector3D : MonoBehaviour
         return matrix;
     }
 
-    float[,] setPivotY(float[,] matrix, float angle)
+    public float[,] setPivotY(float[,] matrix, float angle)
     {
         matrix[0, 0] = Mathf.Cos(angle * Mathf.Deg2Rad);
         matrix[0, 2] = Mathf.Sin(angle * Mathf.Deg2Rad);
@@ -162,5 +184,4 @@ public class Vector3D : MonoBehaviour
 
         return matrix;
     }
-
 }
