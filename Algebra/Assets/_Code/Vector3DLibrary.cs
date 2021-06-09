@@ -11,7 +11,7 @@ public class Vector3DLibrary
         return answer;
     }
 
-    float magnitud(Vector3 vector)
+    public float magnitud(Vector3 vector)
     {
         float respuesta;
         respuesta = Mathf.Sqrt(Mathf.Pow(vector.x, 2) + Mathf.Pow(vector.y, 2) + Mathf.Pow(vector.z, 2));

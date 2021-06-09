@@ -8,6 +8,9 @@ public class PlayerInput : MonoBehaviour
     private bool ForwardInput, LeftInput, RightInput, FireInput;
     private float Cooldown = 5f;
     private float CooldownTimer;
+    private Rigidbody rb;
+    private AudioSource audioSource;
+
     [Header ("Speeds")]
     [SerializeField] private float MoveSpeed = 10f;
     [SerializeField] private float RotationSpeed = 40f;
@@ -19,8 +22,23 @@ public class PlayerInput : MonoBehaviour
     [Header("Bullet")]
     [SerializeField] private GameObject bullet;
 
-    // Update is called once per frame
+    public void Start()
+    {
+        rb = this.GetComponent<Rigidbody>();
+        audioSource = this.GetComponent<AudioSource>();
+    }
+
     void Update()
+    {
+        getInput();
+    }
+
+    public void FixedUpdate()
+    {
+        applyInput();
+    }
+
+    private void getInput()
     {
         if (Input.GetKey(ForwardKey))
         {
@@ -47,12 +65,14 @@ public class PlayerInput : MonoBehaviour
         else FireInput = false;
     }
 
-    public void FixedUpdate()
+    private void applyInput()
     {
         if (ForwardInput)
         {
             this.gameObject.transform.Translate(Vector3.forward * Time.deltaTime * MoveSpeed);
+            audioSource.pitch = 1.25f;
         }
+        else audioSource.pitch = 1.0f;
 
         if (LeftInput)
         {
@@ -68,9 +88,10 @@ public class PlayerInput : MonoBehaviour
         {
             if (Time.time > CooldownTimer)
             {
-                Instantiate(bullet,transform.Find("Canon").transform);
+                Instantiate(bullet, transform.Find("Canon").transform);
                 CooldownTimer = Time.time + Cooldown;
             }
         }
     }
+
 }

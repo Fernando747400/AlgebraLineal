@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class TankBuilder : MonoBehaviour
 {
+    [Header("BuildingBlocks")]
     public GameObject baseTank;
     public GameObject baseWheels;
+    [Header("Position and rotation")]
     public Vector3 InitialPosition;
     public Vector3 InititalRotation;
+    [Header("Myself and enemy")]
+    public GameObject enemy;
+    [Header("ResetSound")]
+    public AudioClip teleport;
     private Vector3DLibrary myVector3D = new Vector3DLibrary();
+    private Vector3 InitialPositionSave, InitialRotationSave;
     void Start()
     {
         makeTank();
@@ -63,8 +70,30 @@ public class TankBuilder : MonoBehaviour
 
         this.transform.position = myVector3D.transformVector(this.transform.position, InitialPosition.x, InitialPosition.y, InitialPosition.z);
         this.transform.rotation = Quaternion.Euler(myVector3D.transformVector(this.transform.rotation.eulerAngles,InititalRotation.x, InititalRotation.y, InititalRotation.z));
+        InitialPositionSave = this.transform.position;
+        InitialRotationSave = this.transform.rotation.eulerAngles;
         
     }
 
-    
+    public void resetPlayer()
+    {
+        this.transform.position = InitialPositionSave;
+        this.transform.rotation = Quaternion.Euler(InitialRotationSave);
+        AudioSource.PlayClipAtPoint(teleport,this.transform.position,1.0f);
+    }
+
+    public void checkPlayerDistance()
+    {
+        if (myVector3D.distance(this.transform.position, enemy.transform.position) < 9)
+        {
+            resetPlayer();
+            enemy.GetComponent<TankBuilder>().resetPlayer();
+        }
+    }
+
+    public void Update()
+    {
+        checkPlayerDistance();
+    }
+
 }
