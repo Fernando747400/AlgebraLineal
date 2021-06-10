@@ -2304,6 +2304,7 @@ GameObject:
   - component: {fileID: 1288045081}
   - component: {fileID: 1288045085}
   - component: {fileID: 1288045086}
+  - component: {fileID: 1288045087}
   m_Layer: 5
   m_Name: Puntuaciones
   m_TagString: Untagged
@@ -2429,6 +2430,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6680daa82d26f48bfdb5f89aba4f0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1288045087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288045080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c4fc716c1245649827b809e4ca478c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stringConnection: 
 --- !u!1001 &1303661031
 PrefabInstance:
   m_ObjectHideFlags: 0

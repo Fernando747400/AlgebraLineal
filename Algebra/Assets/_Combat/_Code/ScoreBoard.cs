@@ -18,7 +18,7 @@ public class ScoreBoard : MonoBehaviour
  
     void Update()
     {
-        displayScores();
+        displayScoresDB();
     }
 
     void createScore()
@@ -42,5 +42,14 @@ public class ScoreBoard : MonoBehaviour
         playerTwoScoreText.text = PlayerPrefs.GetInt("PlayerTwoScore").ToString();
         playerOneHighScore.text = PlayerPrefs.GetInt("PlayerOneHighScore").ToString();
         playerTwoHighScore.text = PlayerPrefs.GetInt("PlayerTwoHighScore").ToString();
+    }
+
+    void displayScoresDB()
+    {
+        string[,] resultados = this.GetComponent<ConnectDB>().consultaResultados();
+        playerOneScoreText.text = PlayerPrefs.GetInt("PlayerOneScore").ToString();
+        playerTwoScoreText.text = PlayerPrefs.GetInt("PlayerTwoScore").ToString();
+        playerOneHighScore.text = resultados[0,1];
+        playerTwoHighScore.text = resultados[1,1];
     }
 }

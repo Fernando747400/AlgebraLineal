@@ -26,6 +26,7 @@ public class Bullet : MonoBehaviour
         CameraOne = PlayerOne.transform.Find("Canon").gameObject;
         audioSource = this.GetComponent<AudioSource>();
         AudioSource.PlayClipAtPoint(fire, CameraOne.transform.position);
+        checkHighScoreDB();
     }
 
     void Update()
@@ -52,6 +53,7 @@ public class Bullet : MonoBehaviour
                 PlayerPrefs.SetInt("PlayerOneScore", PlayerPrefs.GetInt("PlayerOneScore") + 1);
             }
             checkHighScore();
+            checkHighScoreDB();
             Destroy(this.gameObject);
         }
     }
@@ -77,7 +79,12 @@ public class Bullet : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-  
+    void checkHighScoreDB()
+    {
+        this.GetComponent<ConnectDB>().updateData(PlayerPrefs.GetInt("PlayerOneHighScore"), PlayerPrefs.GetInt("PlayerOneScore"), PlayerPrefs.GetInt("PlayerTwoHighScore"), PlayerPrefs.GetInt("PlayerTwoScore"));
+    }
+
+
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Wall")
